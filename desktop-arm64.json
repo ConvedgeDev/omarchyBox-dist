@@ -2,7 +2,7 @@
   "schema_version": 1,
   "release": "v0.1.12",
   "architecture": "Linux ARM64",
-  "verified_on": "2026-11-10",
+  "verified_on": "2026-11-09",
   "repository": "https://github.com/ConvedgeDev/omarchyBox-dist",
   "packages": [
     {
@@ -19,7 +19,7 @@
           "signed_release": "https://downloads.claude.ai/claude-desktop/apt/stable/dists/stable/InRelease",
           "package_index": "https://downloads.claude.ai/claude-desktop/apt/stable/dists/stable/main/binary-arm64/Packages.gz"
         },
-        "release_valid_until_utc": "2026-11-12T20:59:36+00:00",
+        "release_valid_until_utc": "Thu, 12 Nov 2026 20:59:36 UTC",
         "signing_key_fingerprint": "31DDDE24DDFAB679F42D7BD2BAA929FF1A7ECACE"
       },
       "release_url": "https://github.com/ConvedgeDev/omarchyBox-dist/releases/download/v0.1.12/claude-desktop_4.23118.0_arm64.deb"
