@@ -1,0 +1,44 @@
+{
+  "schema_version": 1,
+  "release": "v0.1.12",
+  "architecture": "Linux ARM64",
+  "verified_on": "2026-11-10",
+  "packages": [
+    {
+      "name": "Claude Desktop",
+      "version": "4.23118.0",
+      "filename": "claude-desktop_4.23118.0_arm64.deb",
+      "url": "https://downloads.claude.ai/claude-desktop/apt/stable/pool/main/c/claude-desktop/claude-desktop_4.23118.0_arm64.deb",
+      "size_bytes": 172109316,
+      "sha256": "b4c04e08338b321f5c02543ab6be819cbb9f38ef051a3e7d8ffdc5b4d5248ea4",
+      "verification": {
+        "method": "OpenPGP signed InRelease, SHA-256 of ARM64 Packages.gz, SHA-256 of DEB",
+        "metadata": {
+          "signing_key": "https://downloads.claude.ai/claude-desktop/key.asc",
+          "signed_release": "https://downloads.claude.ai/claude-desktop/apt/stable/dists/stable/InRelease",
+          "package_index": "https://downloads.claude.ai/claude-desktop/apt/stable/dists/stable/main/binary-arm64/Packages.gz"
+        },
+        "release_valid_until_utc": "2026-11-12T20:59:36+00:00",
+        "signing_key_fingerprint": "31DDDE24DDFAB679F42D7BD2BAA929FF1A7ECACE"
+      }
+    },
+    {
+      "name": "ChatGPT / Codex App",
+      "version": "26.1103.60933-1",
+      "filename": "chatgpt-bin-26.1103.60933-1-aarch64.pkg.tar.zst",
+      "url": "https://persistent.oaistatic.com/codex-app-prod/linux/arch/26.1103.60933/aarch64/chatgpt-bin-26.1103.60933-1-aarch64.pkg.tar.zst",
+      "size_bytes": 573188695,
+      "sha256": "285e6ab89c5331cbdad8f4b8cf777103b587d21fff1ff1f640085a27a884601d",
+      "verification": {
+        "method": "OpenPGP signed Arch package index and detached package signature",
+        "metadata": {
+          "signing_key": "https://persistent.oaistatic.com/codex-app-prod/linux/arch/26.1103.60933/repository-signing-key.gpg",
+          "package_index": "https://persistent.oaistatic.com/codex-app-prod/linux/arch/26.1103.60933/aarch64/openai-chatgpt.db",
+          "package_index_signature": "https://persistent.oaistatic.com/codex-app-prod/linux/arch/26.1103.60933/aarch64/openai-chatgpt.db.sig",
+          "package_signature": "https://persistent.oaistatic.com/codex-app-prod/linux/arch/26.1103.60933/aarch64/chatgpt-bin-26.1103.60933-1-aarch64.pkg.tar.zst.sig"
+        },
+        "signing_key_fingerprint": "3BFA0E4AE8B8CC16A2D9BA684A3B4A566C4660E4"
+      }
+    }
+  ]
+}
