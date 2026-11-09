@@ -118,7 +118,11 @@ fi
 TMP_ROOT=${TMPDIR:-/tmp}
 TMP_ROOT=${TMP_ROOT%/}
 STAGE=$(mktemp -d "$TMP_ROOT/desktop-release.XXXXXX")
+claude_gpg=
+openai_gpg=
 cleanup() {
+    [[ -z $claude_gpg ]] || rm -rf -- "$claude_gpg"
+    [[ -z $openai_gpg ]] || rm -rf -- "$openai_gpg"
     if [[ $KEEP -eq 0 ]]; then rm -rf -- "$STAGE"; else note "Kept downloads in $STAGE"; fi
 }
 trap cleanup EXIT
@@ -166,8 +170,7 @@ mkdir -p "$STAGE/claude"
 claude_stage=$STAGE/claude
 note 'Fetching Anthropic signing key and APT metadata...'
 fetch "$CLAUDE_KEY_URL" "$claude_stage/key.asc"
-claude_gpg=$(mktemp -d "$TMP_ROOT/desktop-gpg.XXXXXX")
-trap 'rm -rf -- "$claude_gpg"; cleanup' EXIT
+claude_gpg=$(mktemp -d /tmp/desktop-gpg.XXXXXX)
 chmod 700 "$claude_gpg"
 claude_key_fpr=$(gpg_fingerprint "$claude_stage/key.asc" "$claude_gpg")
 [[ $claude_key_fpr == "$CLAUDE_FPR" ]] || die 'Anthropic signing-key fingerprint mismatch.'
@@ -203,6 +206,8 @@ note "Claude Desktop $(python3 scripts/release_files.py field "$STAGE/claude.jso
 # ---------------------------------------------------------------------------
 mkdir -p "$STAGE/chatgpt"
 chatgpt_stage=$STAGE/chatgpt
+openai_gpg=$(mktemp -d /tmp/desktop-gpg-openai.XXXXXX)
+chmod 700 "$openai_gpg"
 note 'Fetching OpenAI installer release list...'
 fetch "$OPENAI_BASE/install-arch.sh" "$chatgpt_stage/install-arch.sh"
 release_line=$(grep -Ex 'versions=\([0-9]+(\.[0-9]+)+( +[0-9]+(\.[0-9]+)+)*\)' "$chatgpt_stage/install-arch.sh") ||
@@ -224,8 +229,6 @@ for version in "${openai_versions[@]}"; do
         note "OpenAI release $version metadata is unavailable; trying the next one."
         continue
     fi
-    openai_gpg=$candidate/.gnupg
-    mkdir -m 700 "$openai_gpg"
     key_fpr=$(gpg_fingerprint "$candidate/key.gpg" "$openai_gpg")
     if [[ $key_fpr != "$OPENAI_FPR" ]]; then
         die "OpenAI signing-key fingerprint mismatch for $version."
