@@ -96,12 +96,13 @@ def claude_select(stage: Path, index: str, base_url: str, key_url: str, key_fpr:
 
     version = max(versions, key=lambda value: tuple(map(int, value.split("."))))
     info = versions[version]
-    filename = info["Filename"]
+    package_path = info["Filename"]
+    filename = Path(package_path).name
     return {
         "name": CLAUDE_NAME,
         "version": version,
         "filename": filename,
-        "url": f"{base_url}/{filename}",
+        "url": f"{base_url}/{package_path}",
         "size_bytes": int(info["Size"]),
         "sha256": info["SHA256"],
         "verification": {
