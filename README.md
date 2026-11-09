@@ -1,5 +1,7 @@
 # omarchyBox-dist
 
+<img src="assets/omarchybox.png" alt="omarchyBox App 图标" width="112" height="112">
+
 这里记录 omarchyBox 配套桌面应用的 Linux ARM64 安装包版本、厂商下载地址和校验值。安装包由 Anthropic 和 OpenAI 的服务器提供。
 
 ## v0.1.12 配套下载
