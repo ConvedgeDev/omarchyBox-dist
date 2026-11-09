@@ -2,7 +2,7 @@
   "schema_version": 1,
   "release": "v0.1.12",
   "architecture": "Linux ARM64",
-  "verified_on": "2026-11-09",
+  "verified_on": "2026-11-10",
   "repository": "https://github.com/ConvedgeDev/omarchyBox-dist",
   "packages": [
     {

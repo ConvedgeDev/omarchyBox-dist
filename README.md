@@ -18,7 +18,7 @@ Release files:
 
 The original vendor downloads remain available at the URLs recorded in `desktop-arm64.json`. The GitHub Release copies let you download and verify a known-good ARM64 build even when a vendor URL changes or a pinned version is removed from the live index.
 
-Verified on 2026-11-09.
+Verified on 2026-11-10.
 
 ## Verify the downloads
 
@@ -82,7 +82,7 @@ Release 中的其他文件：
 
 `desktop-arm64.json` 里保留了厂商原始下载地址。GitHub Release 的副本用于在厂商链接变化或固定版本从实时索引移除后，仍能下载并核对已知可用的 ARM64 版本。
 
-校验日期：2026-11-09。
+校验日期：2026-11-10。
 
 ## 校验下载
 
