@@ -254,6 +254,7 @@ for version in "${openai_versions[@]}"; do
         die 'OpenAI package signature verification failed.'
     cp -- "$candidate/$file" "$STAGE/$file"
     cp -- "$candidate/meta.json" "$STAGE/chatgpt.json"
+    chatgpt_file=$file
     chatgpt_selected=1
     note "ChatGPT / Codex $(python3 scripts/release_files.py field "$STAGE/chatgpt.json" version) verified."
     break
