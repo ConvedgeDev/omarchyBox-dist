@@ -1,0 +1,56 @@
+name: Sync desktop installer release
+
+on:
+  workflow_dispatch:
+    inputs:
+      release:
+        description: "Release tag (for example v0.1.13); leave empty for the next patch"
+        required: false
+        type: string
+      replace_existing:
+        description: "Refresh assets on an existing tag without moving the tag"
+        required: false
+        default: false
+        type: boolean
+
+permissions:
+  contents: write
+
+concurrency:
+  group: desktop-installer-release
+  cancel-in-progress: false
+
+jobs:
+  publish:
+    runs-on: ubuntu-24.04
+    steps:
+      - name: Check out the repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          persist-credentials: true
+
+      - name: Install verification tools
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y --no-install-recommends gnupg
+
+      - name: Configure git
+        run: |
+          git config user.name "omarchyBox release bot"
+          git config user.email "release-bot@users.noreply.github.com"
+
+      - name: Download, verify and publish
+        env:
+          GH_TOKEN: ${{ github.token }}
+          RELEASE_INPUT: ${{ inputs.release }}
+          REPLACE_INPUT: ${{ inputs.replace_existing }}
+        run: |
+          args=()
+          if [[ -n "$RELEASE_INPUT" ]]; then
+            args+=(--release "$RELEASE_INPUT")
+          fi
+          if [[ "$REPLACE_INPUT" == "true" ]]; then
+            args+=(--replace-existing)
+          fi
+          bash scripts/build-release.sh "${args[@]}"

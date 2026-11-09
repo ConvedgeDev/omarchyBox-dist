@@ -1,21 +1,30 @@
 # omarchyBox-dist
 
-<img src="assets/omarchybox.png" alt="omarchyBox App 图标" width="112" height="112">
+<img src="assets/omarchybox.png" alt="omarchyBox app icon" width="112" height="112">
 
-这里记录 omarchyBox 配套桌面应用的 Linux ARM64 安装包版本、厂商下载地址和校验值。安装包由 Anthropic 和 OpenAI 的服务器提供。
+Verified Linux ARM64 installer mirrors for the two desktop apps used by omarchyBox: **Claude Desktop** and **ChatGPT / Codex App**. Each GitHub Release contains the exact installer files published by Anthropic and OpenAI, plus a checksum file and machine-readable metadata for offline installs and reproducible downloads.
 
-## v0.1.12 配套下载
+**English** · [中文说明](#中文说明)
 
-| 应用 | 固定版本 | 格式 | 厂商下载 |
-| --- | --- | --- | --- |
-| Claude Desktop | 4.23118.0 | Debian ARM64 | [claude-desktop_4.23118.0_arm64.deb](https://downloads.claude.ai/claude-desktop/apt/stable/pool/main/c/claude-desktop/claude-desktop_4.23118.0_arm64.deb) |
-| ChatGPT / Codex App | 26.1103.60933-1 | Arch Linux AArch64 | [chatgpt-bin-26.1103.60933-1-aarch64.pkg.tar.zst](https://persistent.oaistatic.com/codex-app-prod/linux/arch/26.1103.60933/aarch64/chatgpt-bin-26.1103.60933-1-aarch64.pkg.tar.zst) |
+## Download v0.1.12
 
-[Release v0.1.12](https://github.com/ConvedgeDev/omarchyBox-dist/releases/tag/v0.1.12) 提供 [SHA256SUMS](https://github.com/ConvedgeDev/omarchyBox-dist/releases/download/v0.1.12/SHA256SUMS) 和 [desktop-arm64.json](https://github.com/ConvedgeDev/omarchyBox-dist/releases/download/v0.1.12/desktop-arm64.json)。JSON 还记录文件字节数、厂商签名密钥指纹、签名和索引地址。
+| App | Version | Package format | Size | Release download |
+| --- | --- | --- | --- | --- |
+| Claude Desktop | 4.23118.0 | Debian ARM64 (`.deb`) | 164 MiB | [claude-desktop_4.23118.0_arm64.deb](https://github.com/ConvedgeDev/omarchyBox-dist/releases/download/v0.1.12/claude-desktop_4.23118.0_arm64.deb) |
+| ChatGPT / Codex App | 26.1103.60933-1 | Arch Linux AArch64 (`.pkg.tar.zst`) | 547 MiB | [chatgpt-bin-26.1103.60933-1-aarch64.pkg.tar.zst](https://github.com/ConvedgeDev/omarchyBox-dist/releases/download/v0.1.12/chatgpt-bin-26.1103.60933-1-aarch64.pkg.tar.zst) |
 
-## 校验下载
+Release files:
 
-把下载的安装包和 `SHA256SUMS` 放在同一目录，保留表中的文件名。在该目录运行以下命令，看到相应文件显示 `OK` 再安装。只下载其中一个安装包也可以校验。
+- [SHA256SUMS](https://github.com/ConvedgeDev/omarchyBox-dist/releases/download/v0.1.12/SHA256SUMS) — SHA-256 for both installer files.
+- [desktop-arm64.json](https://github.com/ConvedgeDev/omarchyBox-dist/releases/download/v0.1.12/desktop-arm64.json) — versions, file sizes, vendor source URLs, signed-index URLs, signing-key fingerprints and verification methods.
+
+The original vendor downloads remain available at the URLs recorded in `desktop-arm64.json`. The GitHub Release copies let you download and verify a known-good ARM64 build even when a vendor URL changes or a pinned version is removed from the live index.
+
+Verified on 2026-11-10.
+
+## Verify the downloads
+
+Place the installer files and `SHA256SUMS` in the same directory, keeping the filenames shown above, then run:
 
 ```sh
 # Linux
@@ -25,15 +34,90 @@ sha256sum --ignore-missing --check SHA256SUMS
 shasum --ignore-missing -a 256 --check SHA256SUMS
 ```
 
-- **Claude Desktop** 的 SHA-256 来自 Anthropic 签署的 APT `InRelease`，其中包含 ARM64 `Packages.gz` 的摘要。发布时已验证签名、索引和完整安装包。使用 APT 安装时，按厂商说明核对密钥指纹 `31DDDE24DDFAB679F42D7BD2BAA929FF1A7ECACE`，由 APT 验证当前有效的仓库索引。 [Anthropic 安装与密钥说明](https://support.claude.com/en/articles/10065433-install-claude-desktop)
-- **ChatGPT / Codex App** 的 SHA-256 来自 OpenAI 签署的 Arch 仓库索引。发布时还验证了完整安装包的独立签名。复核时，在临时 GPG 密钥环中导入厂商公钥前核对指纹 `3BFA0E4AE8B8CC16A2D9BA684A3B4A566C4660E4`，再用 `gpg --verify <签名文件> <安装包>` 验证。 [OpenAI 公钥](https://persistent.oaistatic.com/codex-app-prod/linux/arch/26.1103.60933/repository-signing-key.gpg) · [安装包签名](https://persistent.oaistatic.com/codex-app-prod/linux/arch/26.1103.60933/aarch64/chatgpt-bin-26.1103.60933-1-aarch64.pkg.tar.zst.sig) · [OpenAI Linux 安装说明](https://learn.chatgpt.com/docs/linux/linux-app)
+Each installer should report `OK`. You can verify either file by keeping only its line in `SHA256SUMS`.
+
+The release checksums are generated from the downloaded package bytes after the vendor signatures and signed indexes have been checked:
+
+- **Claude Desktop** — the `.deb` is listed in Anthropic's OpenPGP-signed APT `InRelease` file. The publisher pins Anthropic's signing-key fingerprint `31DDDE24DDFAB679F42D7BD2BAA929FF1A7ECACE`, verifies the ARM64 `Packages.gz` digest from `InRelease`, and then verifies the package size and SHA-256. See [Anthropic's Linux installation guide](https://support.claude.com/en/articles/10065433-install-claude-desktop).
+- **ChatGPT / Codex App** — the package is recorded in OpenAI's OpenPGP-signed Arch repository index, and OpenAI also publishes a detached signature for the package. The publisher pins OpenAI's signing-key fingerprint `3BFA0E4AE8B8CC16A2D9BA684A3B4A566C4660E4`, verifies the repository index and package signature, and then verifies the signed size and SHA-256. See [OpenAI's Linux installation guide](https://learn.chatgpt.com/docs/linux/linux-app).
+
+## Install in omarchyBox
+
+Open **Agent Install** in the omarchyBox launcher and select the desktop app. omarchyBox checks its isolated network route, installs from the vendor source with signature verification, and shows progress in the desktop terminal. Its automatic install uses the vendor's live release index; this repository's GitHub Releases provide stable manual downloads and checksums for specific builds.
+
+For another Linux distribution, use the format and dependencies documented by the vendor. The Claude Debian package targets the Ubuntu / Debian systems listed by Anthropic. The ChatGPT Arch package targets Arch Linux.
+
+## Distribution
+
+Vendor application packages, updates and support remain the responsibility of Anthropic and OpenAI. Use of each application is governed by its vendor terms: [Anthropic terms](https://www.anthropic.com/legal/consumer-terms) · [OpenAI terms](https://openai.com/policies/row-terms-of-use/).
+
+## Maintainer publishing
+
+Download the current official packages, refresh every generated file, tag the repository and publish the release assets with:
+
+```sh
+bash scripts/build-release.sh
+```
+
+Without `--release`, the script increments the latest release's patch version. To refresh assets on an existing release, use `--replace-existing --release vX.Y.Z`. It requires `curl`, `gpg`, `python3`, `git` and an authenticated `gh` CLI; the GitHub workflow runs the same command on an Ubuntu runner.
+
+---
+
+## 中文说明
+
+这里镜像 omarchyBox 使用的两个 Linux ARM64 桌面应用安装包：**Claude Desktop** 和 **ChatGPT / Codex App**。每个 GitHub Release 都包含 Anthropic 与 OpenAI 发布的原始安装文件，以及校验文件和机器可读清单元数据，方便离线安装、固定版本和重复下载。
+
+## 下载 v0.1.12
+
+| 应用 | 版本 | 安装包格式 | 大小 | Release 下载 |
+| --- | --- | --- | --- | --- |
+| Claude Desktop | 4.23118.0 | Debian ARM64（`.deb`） | 164 MiB | [claude-desktop_4.23118.0_arm64.deb](https://github.com/ConvedgeDev/omarchyBox-dist/releases/download/v0.1.12/claude-desktop_4.23118.0_arm64.deb) |
+| ChatGPT / Codex App | 26.1103.60933-1 | Arch Linux AArch64（`.pkg.tar.zst`） | 547 MiB | [chatgpt-bin-26.1103.60933-1-aarch64.pkg.tar.zst](https://github.com/ConvedgeDev/omarchyBox-dist/releases/download/v0.1.12/chatgpt-bin-26.1103.60933-1-aarch64.pkg.tar.zst) |
+
+Release 中的其他文件：
+
+- [SHA256SUMS](https://github.com/ConvedgeDev/omarchyBox-dist/releases/download/v0.1.12/SHA256SUMS)：两个安装包的 SHA-256。
+- [desktop-arm64.json](https://github.com/ConvedgeDev/omarchyBox-dist/releases/download/v0.1.12/desktop-arm64.json)：版本、字节数、厂商原始地址、签名索引地址、签名密钥指纹和验证方式。
+
+`desktop-arm64.json` 里保留了厂商原始下载地址。GitHub Release 的副本用于在厂商链接变化或固定版本从实时索引移除后，仍能下载并核对已知可用的 ARM64 版本。
+
+校验日期：2026-11-10。
+
+## 校验下载
+
+把安装包和 `SHA256SUMS` 放在同一目录，保留上表中的文件名，然后运行：
+
+```sh
+# Linux
+sha256sum --ignore-missing --check SHA256SUMS
+
+# macOS
+shasum --ignore-missing -a 256 --check SHA256SUMS
+```
+
+安装包显示 `OK` 后再安装。只下载其中一个包时，也可以只保留 `SHA256SUMS` 中对应的那一行。
+
+Release 里的校验值由已经通过厂商签名和签名索引验证的安装包字节生成：
+
+- **Claude Desktop**：`.deb` 记录在 Anthropic 进行 OpenPGP 签名的 APT `InRelease` 中。发布脚本固定校验 Anthropic 签名密钥指纹 `31DDDE24DDFAB679F42D7BD2BAA929FF1A7ECACE`，验证 `InRelease` 中 ARM64 `Packages.gz` 的摘要，再核对安装包大小和 SHA-256。[Anthropic Linux 安装说明](https://support.claude.com/en/articles/10065433-install-claude-desktop)
+- **ChatGPT / Codex App**：安装包记录在 OpenAI 进行 OpenPGP 签名的 Arch 仓库索引中，OpenAI 还提供安装包的独立签名。发布脚本固定校验 OpenAI 签名密钥指纹 `3BFA0E4AE8B8CC16A2D9BA684A3B4A566C4660E4`，验证仓库索引签名、安装包签名，再核对签名索引中的大小和 SHA-256。[OpenAI Linux 安装说明](https://learn.chatgpt.com/docs/linux/linux-app)
 
 ## 在 omarchyBox 安装
 
-在启动器的 **Agent Install** 选择桌面应用。VM 会在验证隔离出口后，从厂商服务器下载并校验安装包，在桌面终端显示安装进度。应用的自动安装使用厂商的实时版本索引，本仓库的 Release 供手动下载和核对指定版本。
+在 omarchyBox 启动器的 **Agent Install** 选择桌面应用。omarchyBox 会在验证隔离网络出口后，从厂商来源下载并校验安装包，在桌面终端显示安装进度。自动安装使用厂商的实时版本索引；本仓库的 GitHub Release 提供稳定版本的手动下载和校验值。
 
-如需在其他 Linux 发行版上安装，请按上面的厂商文档选择对应格式和依赖。Claude 的 Debian 包适用于厂商列出的 Ubuntu / Debian 系统，ChatGPT 的 Arch 包面向 Arch Linux。
+在其他 Linux 发行版安装时，请遵循厂商文档中的格式和依赖。Claude 的 Debian 安装包面向 Anthropic 列出的 Ubuntu / Debian 系统；ChatGPT 的 Arch 安装包面向 Arch Linux。
 
 ## 分发范围
 
-本仓库发布下载清单和校验值。第三方安装包、更新及支持由原厂商提供，软件使用遵循各厂商条款。 [Anthropic 条款](https://www.anthropic.com/legal/consumer-terms) · [OpenAI 条款](https://openai.com/policies/row-terms-of-use/)
+第三方安装包、更新和支持由 Anthropic 与 OpenAI 提供，软件使用遵循各厂商条款：[Anthropic 条款](https://www.anthropic.com/legal/consumer-terms) · [OpenAI 条款](https://openai.com/policies/row-terms-of-use/)。
+
+## 维护者发布
+
+运行下面的命令即可从官网下载当前安装包、刷新自动生成的文件、打 tag 并上传 GitHub Release：
+
+```sh
+bash scripts/build-release.sh
+```
+
+不传 `--release` 时，脚本会把最新 Release 的补丁版本加一。要刷新已有 Release 的文件，使用 `--replace-existing --release vX.Y.Z`。脚本依赖 `curl`、`gpg`、`python3`、`git` 和已登录的 `gh`；仓库内的 GitHub Actions 工作流会在 Ubuntu runner 上执行同一脚本。
