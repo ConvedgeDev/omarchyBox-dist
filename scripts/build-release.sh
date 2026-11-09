@@ -94,7 +94,7 @@ if ! command -v sha256sum >/dev/null 2>&1 && ! command -v shasum >/dev/null 2>&1
     die 'Required command not found: sha256sum or shasum'
 fi
 
-[[ -f scripts/release_files.py && -f README.md.in ]] || die 'Run this script from the omarchyBox-dist checkout.'
+[[ -f scripts/release_files.py && -f README.md.in ]] || die 'Run this script from the project checkout.'
 [[ -z $(git status --porcelain) ]] || die 'The git worktree must be clean before building a release.'
 
 if [[ -z $REPO ]]; then
@@ -115,7 +115,7 @@ if git rev-parse -q --verify "refs/tags/$RELEASE" >/dev/null; then
     [[ $REPLACE -eq 1 ]] || die "Tag $RELEASE already exists; use --replace-existing to refresh it."
 fi
 
-STAGE=$(mktemp -d "${TMPDIR:-/tmp}/omarchybox-release.XXXXXX")
+STAGE=$(mktemp -d "${TMPDIR:-/tmp}/desktop-release.XXXXXX")
 cleanup() {
     if [[ $KEEP -eq 0 ]]; then rm -rf -- "$STAGE"; else note "Kept downloads in $STAGE"; fi
 }
@@ -164,7 +164,7 @@ note 'Fetching Anthropic signing key and APT metadata...'
 fetch "$CLAUDE_KEY_URL" "$claude_stage/key.asc"
 claude_key_fpr=$(gpg_fingerprint "$claude_stage/key.asc")
 [[ $claude_key_fpr == "$CLAUDE_FPR" ]] || die 'Anthropic signing-key fingerprint mismatch.'
-claude_gpg=$(mktemp -d "${TMPDIR:-/tmp}/omarchybox-gpg.XXXXXX")
+claude_gpg=$(mktemp -d "${TMPDIR:-/tmp}/desktop-gpg.XXXXXX")
 trap 'rm -rf -- "$claude_gpg"; cleanup' EXIT
 chmod 700 "$claude_gpg"
 gpg --no-options --homedir "$claude_gpg" --batch --no-autostart --import "$claude_stage/key.asc" >/dev/null 2>&1 ||
@@ -305,7 +305,7 @@ fi
 if git rev-parse -q --verify "refs/tags/$RELEASE" >/dev/null; then
     note "Tag $RELEASE already exists; keeping its commit unchanged."
 else
-    git tag -a "$RELEASE" -m "omarchyBox $RELEASE Linux ARM64 desktop apps"
+    git tag -a "$RELEASE" -m "Linux ARM64 desktop apps $RELEASE"
 fi
 git push origin "$BRANCH"
 git push origin "refs/tags/$RELEASE"
@@ -315,11 +315,11 @@ for asset in "${assets[@]}"; do [[ -f $asset ]] || die "Missing release asset: $
 if gh release view "$RELEASE" --repo "$REPO" >/dev/null 2>&1; then
     gh release upload "$RELEASE" "${assets[@]}" --repo "$REPO" --clobber
     gh release edit "$RELEASE" --repo "$REPO" \
-        --title "omarchyBox $RELEASE · Linux ARM64 desktop apps" \
+        --title "Linux ARM64 desktop apps $RELEASE" \
         --notes-file "$STAGE/release-notes.md"
 else
     gh release create "$RELEASE" "${assets[@]}" --repo "$REPO" \
-        --title "omarchyBox $RELEASE · Linux ARM64 desktop apps" \
+        --title "Linux ARM64 desktop apps $RELEASE" \
         --notes-file "$STAGE/release-notes.md"
 fi
 

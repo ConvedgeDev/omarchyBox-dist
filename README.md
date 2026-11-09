@@ -1,8 +1,6 @@
-# omarchyBox-dist
+# Linux ARM64 Desktop Apps
 
-<img src="assets/omarchybox.png" alt="omarchyBox app icon" width="112" height="112">
-
-Verified Linux ARM64 installer mirrors for the two desktop apps used by omarchyBox: **Claude Desktop** and **ChatGPT / Codex App**. Each GitHub Release contains the exact installer files published by Anthropic and OpenAI, plus a checksum file and machine-readable metadata for offline installs and reproducible downloads.
+Verified Linux ARM64 installer mirrors for **Claude Desktop** and **ChatGPT / Codex App**. Each GitHub Release contains the exact installer files published by Anthropic and OpenAI, plus a checksum file and machine-readable metadata for offline installs and reproducible downloads.
 
 **English** · [中文说明](#中文说明)
 
@@ -41,11 +39,14 @@ The release checksums are generated from the downloaded package bytes after the 
 - **Claude Desktop** — the `.deb` is listed in Anthropic's OpenPGP-signed APT `InRelease` file. The publisher pins Anthropic's signing-key fingerprint `31DDDE24DDFAB679F42D7BD2BAA929FF1A7ECACE`, verifies the ARM64 `Packages.gz` digest from `InRelease`, and then verifies the package size and SHA-256. See [Anthropic's Linux installation guide](https://support.claude.com/en/articles/10065433-install-claude-desktop).
 - **ChatGPT / Codex App** — the package is recorded in OpenAI's OpenPGP-signed Arch repository index, and OpenAI also publishes a detached signature for the package. The publisher pins OpenAI's signing-key fingerprint `3BFA0E4AE8B8CC16A2D9BA684A3B4A566C4660E4`, verifies the repository index and package signature, and then verifies the signed size and SHA-256. See [OpenAI's Linux installation guide](https://learn.chatgpt.com/docs/linux/linux-app).
 
-## Install in omarchyBox
+## Install on Linux
 
-Open **Agent Install** in the omarchyBox launcher and select the desktop app. omarchyBox checks its isolated network route, installs from the vendor source with signature verification, and shows progress in the desktop terminal. Its automatic install uses the vendor's live release index; this repository's GitHub Releases provide stable manual downloads and checksums for specific builds.
+Download the package that matches your distribution and architecture, verify it with `SHA256SUMS`, then install it with the system package manager or the procedure described by the vendor.
 
-For another Linux distribution, use the format and dependencies documented by the vendor. The Claude Debian package targets the Ubuntu / Debian systems listed by Anthropic. The ChatGPT Arch package targets Arch Linux.
+- **Claude Desktop** — the Debian package targets the Ubuntu / Debian systems listed by Anthropic. Install the `.deb` with the distribution's package tooling and resolve any dependencies requested by the vendor package.
+- **ChatGPT / Codex App** — the Arch Linux package targets Arch Linux AArch64. Install the `.pkg.tar.zst` with the distribution's package tooling and resolve any dependencies requested by the vendor package.
+
+Only Linux ARM64 (`aarch64`) packages are mirrored here. For other distributions or architectures, use the vendor documentation and official download channels.
 
 ## Distribution
 
@@ -65,7 +66,7 @@ Without `--release`, the script increments the latest release's patch version. T
 
 ## 中文说明
 
-这里镜像 omarchyBox 使用的两个 Linux ARM64 桌面应用安装包：**Claude Desktop** 和 **ChatGPT / Codex App**。每个 GitHub Release 都包含 Anthropic 与 OpenAI 发布的原始安装文件，以及校验文件和机器可读清单元数据，方便离线安装、固定版本和重复下载。
+这里镜像两个 Linux ARM64 桌面应用的官方安装包：**Claude Desktop** 和 **ChatGPT / Codex App**。每个 GitHub Release 都包含 Anthropic 与 OpenAI 发布的原始安装文件，以及校验文件和机器可读清单元数据，方便离线安装、固定版本和重复下载。
 
 ## 下载 v0.1.12
 
@@ -102,11 +103,14 @@ Release 里的校验值由已经通过厂商签名和签名索引验证的安装
 - **Claude Desktop**：`.deb` 记录在 Anthropic 进行 OpenPGP 签名的 APT `InRelease` 中。发布脚本固定校验 Anthropic 签名密钥指纹 `31DDDE24DDFAB679F42D7BD2BAA929FF1A7ECACE`，验证 `InRelease` 中 ARM64 `Packages.gz` 的摘要，再核对安装包大小和 SHA-256。[Anthropic Linux 安装说明](https://support.claude.com/en/articles/10065433-install-claude-desktop)
 - **ChatGPT / Codex App**：安装包记录在 OpenAI 进行 OpenPGP 签名的 Arch 仓库索引中，OpenAI 还提供安装包的独立签名。发布脚本固定校验 OpenAI 签名密钥指纹 `3BFA0E4AE8B8CC16A2D9BA684A3B4A566C4660E4`，验证仓库索引签名、安装包签名，再核对签名索引中的大小和 SHA-256。[OpenAI Linux 安装说明](https://learn.chatgpt.com/docs/linux/linux-app)
 
-## 在 omarchyBox 安装
+## 在 Linux 安装
 
-在 omarchyBox 启动器的 **Agent Install** 选择桌面应用。omarchyBox 会在验证隔离网络出口后，从厂商来源下载并校验安装包，在桌面终端显示安装进度。自动安装使用厂商的实时版本索引；本仓库的 GitHub Release 提供稳定版本的手动下载和校验值。
+下载与发行版和架构匹配的安装包，用 `SHA256SUMS` 校验后，通过系统包管理工具或厂商说明中的方式安装。
 
-在其他 Linux 发行版安装时，请遵循厂商文档中的格式和依赖。Claude 的 Debian 安装包面向 Anthropic 列出的 Ubuntu / Debian 系统；ChatGPT 的 Arch 安装包面向 Arch Linux。
+- **Claude Desktop**：Debian 安装包面向 Anthropic 列出的 Ubuntu / Debian 系统。使用发行版的软件包工具安装 `.deb`，并处理厂商安装包要求的依赖。
+- **ChatGPT / Codex App**：Arch Linux 安装包面向 Arch Linux AArch64。使用发行版的软件包工具安装 `.pkg.tar.zst`，并处理厂商安装包要求的依赖。
+
+本仓库只镜像 Linux ARM64（`aarch64`）安装包。其他发行版或架构请使用厂商文档和官方下载渠道。
 
 ## 分发范围
 

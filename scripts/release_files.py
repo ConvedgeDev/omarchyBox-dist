@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Parse signed vendor indexes and render omarchyBox release metadata."""
+"""Parse signed vendor indexes and render release metadata."""
 
 from __future__ import annotations
 
@@ -236,7 +236,7 @@ def release_notes(args: argparse.Namespace) -> None:
     chatgpt = read_json(Path(args.chatgpt_json))
     base = f"https://github.com/{args.repo}/releases/download/{args.release}"
     print(
-        f"Linux ARM64 installer mirrors for omarchyBox {args.release}.\n\n"
+        f"Linux ARM64 desktop installer mirrors for {args.release}.\n\n"
         "The files below are the official Anthropic and OpenAI packages, verified against "
         "the vendors' signed indexes before upload.\n\n"
         "### Download\n\n"
@@ -251,7 +251,7 @@ def release_notes(args: argparse.Namespace) -> None:
         "sha256sum --ignore-missing --check SHA256SUMS\n"
         "```\n\n"
         "### 中文说明\n\n"
-        f"本版本包含 omarchyBox 使用的两个 Linux ARM64 桌面应用官方安装包："
+        f"本版本包含两个 Linux ARM64 桌面应用的官方安装包："
         f"Claude Desktop {claude['version']} 与 ChatGPT / Codex App {chatgpt['version']}。"
         "发布前已核对厂商签名索引、安装包大小和 SHA-256。\n\n"
         "将安装包与 `SHA256SUMS` 放在同一目录，运行：\n\n"

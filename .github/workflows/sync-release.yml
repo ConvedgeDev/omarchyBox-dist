@@ -37,7 +37,7 @@ jobs:
 
       - name: Configure git
         run: |
-          git config user.name "omarchyBox release bot"
+          git config user.name "desktop release bot"
           git config user.email "release-bot@users.noreply.github.com"
 
       - name: Download, verify and publish
