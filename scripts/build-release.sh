@@ -264,7 +264,7 @@ done
 # ---------------------------------------------------------------------------
 # Render and validate the repository files, then optionally commit and publish.
 # ---------------------------------------------------------------------------
-verified_on=$(date -u +%F)
+verified_on=${VERIFIED_ON:-$(date +%F)}
 python3 scripts/release_files.py write \
     --root "$ROOT" --repo "$REPO" --release "$RELEASE" --verified-on "$verified_on" \
     --claude-json "$STAGE/claude.json" --chatgpt-json "$STAGE/chatgpt.json"
