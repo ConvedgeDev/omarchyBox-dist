@@ -115,7 +115,9 @@ if git rev-parse -q --verify "refs/tags/$RELEASE" >/dev/null; then
     [[ $REPLACE -eq 1 ]] || die "Tag $RELEASE already exists; use --replace-existing to refresh it."
 fi
 
-STAGE=$(mktemp -d "${TMPDIR:-/tmp}/desktop-release.XXXXXX")
+TMP_ROOT=${TMPDIR:-/tmp}
+TMP_ROOT=${TMP_ROOT%/}
+STAGE=$(mktemp -d "$TMP_ROOT/desktop-release.XXXXXX")
 cleanup() {
     if [[ $KEEP -eq 0 ]]; then rm -rf -- "$STAGE"; else note "Kept downloads in $STAGE"; fi
 }
@@ -164,12 +166,12 @@ mkdir -p "$STAGE/claude"
 claude_stage=$STAGE/claude
 note 'Fetching Anthropic signing key and APT metadata...'
 fetch "$CLAUDE_KEY_URL" "$claude_stage/key.asc"
-claude_gpg=$(mktemp -d "${TMPDIR:-/tmp}/desktop-gpg.XXXXXX")
+claude_gpg=$(mktemp -d "$TMP_ROOT/desktop-gpg.XXXXXX")
 trap 'rm -rf -- "$claude_gpg"; cleanup' EXIT
 chmod 700 "$claude_gpg"
 claude_key_fpr=$(gpg_fingerprint "$claude_stage/key.asc" "$claude_gpg")
 [[ $claude_key_fpr == "$CLAUDE_FPR" ]] || die 'Anthropic signing-key fingerprint mismatch.'
-gpg --no-options --homedir "$claude_gpg" --batch --no-autostart --import "$claude_stage/key.asc" >/dev/null 2>&1 ||
+gpg --no-options --homedir "$claude_gpg" --batch --no-autostart --import "$claude_stage/key.asc" >/dev/null ||
     die 'Could not import the Anthropic signing key.'
 fetch "$CLAUDE_APT/dists/stable/InRelease" "$claude_stage/InRelease"
 claude_status=$(gpg --no-options --homedir "$claude_gpg" --batch --no-autostart \
@@ -228,7 +230,7 @@ for version in "${openai_versions[@]}"; do
     if [[ $key_fpr != "$OPENAI_FPR" ]]; then
         die "OpenAI signing-key fingerprint mismatch for $version."
     fi
-    gpg --no-options --homedir "$openai_gpg" --batch --no-autostart --import "$candidate/key.gpg" >/dev/null 2>&1 ||
+    gpg --no-options --homedir "$openai_gpg" --batch --no-autostart --import "$candidate/key.gpg" >/dev/null ||
         die 'Could not import the OpenAI signing key.'
     gpg_verify_detached "$openai_gpg" "$candidate/openai-chatgpt.db.sig" "$candidate/openai-chatgpt.db" ||
         die "OpenAI repository index signature failed for $version."
