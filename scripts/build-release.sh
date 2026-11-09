@@ -139,7 +139,9 @@ fetch() {
 }
 
 gpg_fingerprint() {
-    gpg --no-options --batch --no-autostart --with-colons --show-keys "$1" |
+    local home=$2
+    [[ -d $home ]] || die "GnuPG home does not exist: $home"
+    gpg --no-options --homedir "$home" --batch --no-autostart --with-colons --show-keys "$1" |
         awk -F: '$1 == "pub" { primary=1; next }
                  $1 == "sub" { primary=0; next }
                  $1 == "fpr" && primary { print $10; primary=0 }'
@@ -162,11 +164,11 @@ mkdir -p "$STAGE/claude"
 claude_stage=$STAGE/claude
 note 'Fetching Anthropic signing key and APT metadata...'
 fetch "$CLAUDE_KEY_URL" "$claude_stage/key.asc"
-claude_key_fpr=$(gpg_fingerprint "$claude_stage/key.asc")
-[[ $claude_key_fpr == "$CLAUDE_FPR" ]] || die 'Anthropic signing-key fingerprint mismatch.'
 claude_gpg=$(mktemp -d "${TMPDIR:-/tmp}/desktop-gpg.XXXXXX")
 trap 'rm -rf -- "$claude_gpg"; cleanup' EXIT
 chmod 700 "$claude_gpg"
+claude_key_fpr=$(gpg_fingerprint "$claude_stage/key.asc" "$claude_gpg")
+[[ $claude_key_fpr == "$CLAUDE_FPR" ]] || die 'Anthropic signing-key fingerprint mismatch.'
 gpg --no-options --homedir "$claude_gpg" --batch --no-autostart --import "$claude_stage/key.asc" >/dev/null 2>&1 ||
     die 'Could not import the Anthropic signing key.'
 fetch "$CLAUDE_APT/dists/stable/InRelease" "$claude_stage/InRelease"
@@ -220,12 +222,12 @@ for version in "${openai_versions[@]}"; do
         note "OpenAI release $version metadata is unavailable; trying the next one."
         continue
     fi
-    key_fpr=$(gpg_fingerprint "$candidate/key.gpg")
+    openai_gpg=$candidate/.gnupg
+    mkdir -m 700 "$openai_gpg"
+    key_fpr=$(gpg_fingerprint "$candidate/key.gpg" "$openai_gpg")
     if [[ $key_fpr != "$OPENAI_FPR" ]]; then
         die "OpenAI signing-key fingerprint mismatch for $version."
     fi
-    openai_gpg=$candidate/.gnupg
-    mkdir -m 700 "$openai_gpg"
     gpg --no-options --homedir "$openai_gpg" --batch --no-autostart --import "$candidate/key.gpg" >/dev/null 2>&1 ||
         die 'Could not import the OpenAI signing key.'
     gpg_verify_detached "$openai_gpg" "$candidate/openai-chatgpt.db.sig" "$candidate/openai-chatgpt.db" ||
