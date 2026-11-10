@@ -12,6 +12,14 @@ on:
         required: false
         default: false
         type: boolean
+      if_changed:
+        description: "Only publish when a vendor package version changed"
+        required: false
+        default: false
+        type: boolean
+  schedule:
+    # 09:17 Asia/Singapore (GitHub cron uses UTC).
+    - cron: "17 1 * * *"
 
 env:
   TZ: Asia/Singapore
@@ -48,6 +56,8 @@ jobs:
           GH_TOKEN: ${{ github.token }}
           RELEASE_INPUT: ${{ inputs.release }}
           REPLACE_INPUT: ${{ inputs.replace_existing }}
+          IF_CHANGED_INPUT: ${{ inputs.if_changed }}
+          EVENT_NAME: ${{ github.event_name }}
         run: |
           args=()
           if [[ -n "$RELEASE_INPUT" ]]; then
@@ -55,5 +65,8 @@ jobs:
           fi
           if [[ "$REPLACE_INPUT" == "true" ]]; then
             args+=(--replace-existing)
+          fi
+          if [[ "$EVENT_NAME" == "schedule" || "$IF_CHANGED_INPUT" == "true" ]]; then
+            args+=(--if-changed)
           fi
           bash scripts/build-release.sh "${args[@]}"

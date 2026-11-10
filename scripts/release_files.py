@@ -276,6 +276,32 @@ def meta_field(args: argparse.Namespace) -> None:
         print(value)
 
 
+def unchanged(args: argparse.Namespace) -> None:
+    try:
+        manifest = json.loads(Path(args.manifest).read_text(encoding="utf-8"))
+        expected = [json.loads(Path(path).read_text(encoding="utf-8")) for path in (
+            args.claude_json, args.chatgpt_json
+        )]
+        packages = manifest["packages"]
+        if len(packages) != 2 or len(expected) != 2:
+            raise ValueError
+        for package, source in zip(packages, expected, strict=True):
+            if (
+                package["version"],
+                package["filename"],
+                package["sha256"],
+                package["size_bytes"],
+            ) != (
+                source["version"],
+                source["filename"],
+                source["sha256"],
+                source["size_bytes"],
+            ):
+                raise ValueError
+    except (OSError, KeyError, TypeError, ValueError, json.JSONDecodeError):
+        raise SystemExit(1)
+
+
 def bump(args: argparse.Namespace) -> None:
     match = re.fullmatch(r"v([0-9]+)\.([0-9]+)\.([0-9]+)", args.latest or "")
     if not match:
@@ -329,6 +355,12 @@ def parser() -> argparse.ArgumentParser:
     item.add_argument("path")
     item.add_argument("field")
     item.set_defaults(func=meta_field)
+
+    item = sub.add_parser("unchanged")
+    item.add_argument("--manifest", required=True)
+    item.add_argument("--claude-json", required=True)
+    item.add_argument("--chatgpt-json", required=True)
+    item.set_defaults(func=unchanged)
 
     item = sub.add_parser("bump")
     item.add_argument("--latest", default="")

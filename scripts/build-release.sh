@@ -19,6 +19,7 @@ OPENAI_FPR=3BFA0E4AE8B8CC16A2D9BA684A3B4A566C4660E4
 RELEASE=
 REPO=
 REPLACE=0
+IF_CHANGED=0
 PUBLISH=1
 KEEP=0
 STAGE=
@@ -37,6 +38,8 @@ Options:
                       patch after the latest GitHub Release.
   --replace-existing  Refresh an existing tag/release. The tag is advanced to the
                       generated commit and stale release assets are removed.
+  --if-changed        Compare the verified vendor versions with the current
+                      manifest and exit without publishing when nothing changed.
   --repo OWNER/REPO   GitHub repository. Defaults to the current checkout.
   --no-publish        Only refresh files in the worktree; do not commit, tag or
                       upload.
@@ -65,6 +68,10 @@ while (($#)); do
             ;;
         --replace-existing)
             REPLACE=1
+            shift
+            ;;
+        --if-changed)
+            IF_CHANGED=1
             shift
             ;;
         --no-publish)
@@ -194,11 +201,7 @@ claude_url=$(python3 scripts/release_files.py field "$STAGE/claude.json" url)
 claude_size=$(python3 scripts/release_files.py field "$STAGE/claude.json" size_bytes)
 claude_sha=$(python3 scripts/release_files.py field "$STAGE/claude.json" sha256)
 [[ $claude_file != */* && $claude_file != .* ]] || die 'Unexpected Claude package filename.'
-note "Downloading $claude_file..."
-fetch "$claude_url" "$STAGE/$claude_file"
-[[ $(file_size "$STAGE/$claude_file") == "$claude_size" ]] || die 'Claude package size mismatch.'
-[[ $(sha256_file "$STAGE/$claude_file") == "$claude_sha" ]] || die 'Claude package SHA-256 mismatch.'
-note "Claude Desktop $(python3 scripts/release_files.py field "$STAGE/claude.json" version) verified."
+note "Claude Desktop $(python3 scripts/release_files.py field "$STAGE/claude.json" version) selected."
 
 # ---------------------------------------------------------------------------
 # ChatGPT / Codex: read the versions array from OpenAI's official installer,
@@ -248,23 +251,39 @@ for version in "${openai_versions[@]}"; do
     package_url=$(python3 scripts/release_files.py field "$candidate/meta.json" url)
     package_size=$(python3 scripts/release_files.py field "$candidate/meta.json" size_bytes)
     package_sha=$(python3 scripts/release_files.py field "$candidate/meta.json" sha256)
-    if ! fetch "$arch_url/$file.sig" "$candidate/$file.sig" ||
-       ! fetch "$package_url" "$candidate/$file"; then
-        note "OpenAI release $version package is unavailable; trying the next one."
-        continue
-    fi
-    [[ $(file_size "$candidate/$file") == "$package_size" ]] || die 'ChatGPT package size mismatch.'
-    [[ $(sha256_file "$candidate/$file") == "$package_sha" ]] || die 'ChatGPT package SHA-256 mismatch.'
-    gpg_verify_detached "$openai_gpg" "$candidate/$file.sig" "$candidate/$file" ||
-        die 'OpenAI package signature verification failed.'
-    cp -- "$candidate/$file" "$STAGE/$file"
     cp -- "$candidate/meta.json" "$STAGE/chatgpt.json"
     chatgpt_file=$file
+    chatgpt_url=$package_url
+    chatgpt_size=$package_size
+    chatgpt_sha=$package_sha
+    chatgpt_arch_url=$arch_url
     chatgpt_selected=1
-    note "ChatGPT / Codex $(python3 scripts/release_files.py field "$STAGE/chatgpt.json" version) verified."
+    note "ChatGPT / Codex $(python3 scripts/release_files.py field "$STAGE/chatgpt.json" version) selected."
     break
 done
 [[ $chatgpt_selected -eq 1 ]] || die 'No published OpenAI ARM64 release could be verified.'
+
+if [[ $IF_CHANGED -eq 1 ]] && python3 scripts/release_files.py unchanged \
+    --manifest "$ROOT/desktop-arm64.json" \
+    --claude-json "$STAGE/claude.json" --chatgpt-json "$STAGE/chatgpt.json"; then
+    note 'No vendor package changes; skipping the release.'
+    exit 0
+fi
+
+note "Downloading $claude_file..."
+fetch "$claude_url" "$STAGE/$claude_file"
+[[ $(file_size "$STAGE/$claude_file") == "$claude_size" ]] || die 'Claude package size mismatch.'
+[[ $(sha256_file "$STAGE/$claude_file") == "$claude_sha" ]] || die 'Claude package SHA-256 mismatch.'
+note "Claude Desktop $(python3 scripts/release_files.py field "$STAGE/claude.json" version) verified."
+
+note "Downloading $chatgpt_file..."
+fetch "$chatgpt_arch_url/$chatgpt_file.sig" "$STAGE/$chatgpt_file.sig"
+fetch "$chatgpt_url" "$STAGE/$chatgpt_file"
+[[ $(file_size "$STAGE/$chatgpt_file") == "$chatgpt_size" ]] || die 'ChatGPT package size mismatch.'
+[[ $(sha256_file "$STAGE/$chatgpt_file") == "$chatgpt_sha" ]] || die 'ChatGPT package SHA-256 mismatch.'
+gpg_verify_detached "$openai_gpg" "$STAGE/$chatgpt_file.sig" "$STAGE/$chatgpt_file" ||
+    die 'OpenAI package signature verification failed.'
+note "ChatGPT / Codex $(python3 scripts/release_files.py field "$STAGE/chatgpt.json" version) verified."
 
 # ---------------------------------------------------------------------------
 # Render and validate the repository files, then optionally commit and publish.

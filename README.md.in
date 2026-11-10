@@ -60,7 +60,9 @@ Download the current official packages, refresh every generated file, tag the re
 bash scripts/build-release.sh
 ```
 
-Without `--release`, the script increments the latest release's patch version. To refresh assets on an existing release, use `--replace-existing --release vX.Y.Z`. It requires `curl`, `gpg`, `python3`, `git` and an authenticated `gh` CLI; the GitHub workflow runs the same command on an Ubuntu runner.
+Without `--release`, the script increments the latest release's patch version. To refresh assets on an existing release, use `--replace-existing --release vX.Y.Z`. Add `--if-changed` to skip publishing when the verified vendor versions already match the current manifest. It requires `curl`, `gpg`, `python3`, `git` and an authenticated `gh` CLI; the GitHub workflow runs the same command on an Ubuntu runner.
+
+The GitHub Actions workflow also runs daily at 09:17 Asia/Singapore. Scheduled runs verify the vendor indexes and publish the next patch only when a package version changes; unchanged runs exit without creating a release.
 
 ---
 
@@ -124,4 +126,6 @@ Release 里的校验值由已经通过厂商签名和签名索引验证的安装
 bash scripts/build-release.sh
 ```
 
-不传 `--release` 时，脚本会把最新 Release 的补丁版本加一。要刷新已有 Release 的文件，使用 `--replace-existing --release vX.Y.Z`。脚本依赖 `curl`、`gpg`、`python3`、`git` 和已登录的 `gh`；仓库内的 GitHub Actions 工作流会在 Ubuntu runner 上执行同一脚本。
+不传 `--release` 时，脚本会把最新 Release 的补丁版本加一。要刷新已有 Release 的文件，使用 `--replace-existing --release vX.Y.Z`。加上 `--if-changed` 后，如果官网版本与当前清单一致，脚本会直接结束，不再发布新 Release。脚本依赖 `curl`、`gpg`、`python3`、`git` 和已登录的 `gh`；仓库内的 GitHub Actions 工作流会在 Ubuntu runner 上执行同一脚本。
+
+GitHub Actions 工作流还会每天新加坡时间 09:17 自动运行。定时任务会验证厂商签名索引，只在安装包版本变化时发布下一个补丁版本；版本未变化时不会创建重复 Release。
