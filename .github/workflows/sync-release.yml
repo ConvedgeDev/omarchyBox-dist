@@ -8,7 +8,7 @@ on:
         required: false
         type: string
       replace_existing:
-        description: "Refresh assets on an existing tag without moving the tag"
+        description: "Refresh an existing tag, its assets and notes"
         required: false
         default: false
         type: boolean

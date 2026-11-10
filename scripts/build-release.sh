@@ -35,8 +35,8 @@ GitHub Release assets.
 Options:
   --release TAG       Release tag, for example v0.1.13. Defaults to the next
                       patch after the latest GitHub Release.
-  --replace-existing  Allow refreshing an existing tag/release. The existing git
-                      tag is not moved; only release files and notes are updated.
+  --replace-existing  Refresh an existing tag/release. The tag is advanced to the
+                      generated commit and stale release assets are removed.
   --repo OWNER/REPO   GitHub repository. Defaults to the current checkout.
   --no-publish        Only refresh files in the worktree; do not commit, tag or
                       upload.
@@ -310,18 +310,36 @@ if ! git diff --cached --quiet; then
     git commit -m "Release $RELEASE Linux ARM64 desktop installers"
 fi
 
+tag_push=()
 if git rev-parse -q --verify "refs/tags/$RELEASE" >/dev/null; then
-    note "Tag $RELEASE already exists; keeping its commit unchanged."
+    git tag -fa "$RELEASE" -m "Linux ARM64 desktop apps $RELEASE" HEAD
+    tag_push+=(--force)
+    note "Updated tag $RELEASE to the generated release commit."
 else
     git tag -a "$RELEASE" -m "Linux ARM64 desktop apps $RELEASE"
 fi
 git push origin "$BRANCH"
-git push origin "refs/tags/$RELEASE"
+git push "${tag_push[@]}" origin "refs/tags/$RELEASE"
 
 assets=("$STAGE/$claude_file" "$STAGE/$chatgpt_file" "$ROOT/SHA256SUMS" "$ROOT/desktop-arm64.json")
 for asset in "${assets[@]}"; do [[ -f $asset ]] || die "Missing release asset: $asset"; done
 if gh release view "$RELEASE" --repo "$REPO" >/dev/null 2>&1; then
     gh release upload "$RELEASE" "${assets[@]}" --repo "$REPO" --clobber
+    gh release view "$RELEASE" --repo "$REPO" --json assets > "$STAGE/existing-assets.json"
+    python3 - "$STAGE/existing-assets.json" "${assets[@]}" > "$STAGE/stale-assets.txt" <<'PYCODE'
+import json
+from pathlib import Path
+import sys
+
+desired = {Path(path).name for path in sys.argv[2:]}
+existing = json.loads(Path(sys.argv[1]).read_text())["assets"]
+for item in existing:
+    if item["name"] not in desired:
+        print(item["name"])
+PYCODE
+    while IFS= read -r stale; do
+        [[ -z $stale ]] || gh release delete-asset "$RELEASE" "$stale" --repo "$REPO" --yes
+    done < "$STAGE/stale-assets.txt"
     gh release edit "$RELEASE" --repo "$REPO" \
         --title "Linux ARM64 desktop apps $RELEASE" \
         --notes-file "$STAGE/release-notes.md"
