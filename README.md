@@ -8,7 +8,7 @@ Verified Linux ARM64 installer mirrors for **Claude Desktop** and **ChatGPT / Co
 
 | App | Version | Package format | Size | Release download |
 | --- | --- | --- | --- | --- |
-| Claude Desktop | 4.23118.0 | Debian ARM64 (`.deb`) | 164 MiB | [claude-desktop_4.23118.0_arm64.deb](https://github.com/ConvedgeDev/omarchyBox-dist/releases/download/v0.1.12/claude-desktop_4.23118.0_arm64.deb) |
+| Claude Desktop | 4.23118.1 | Debian ARM64 (`.deb`) | 164 MiB | [claude-desktop_4.23118.1_arm64.deb](https://github.com/ConvedgeDev/omarchyBox-dist/releases/download/v0.1.12/claude-desktop_4.23118.1_arm64.deb) |
 | ChatGPT / Codex App | 26.1103.60933-1 | Arch Linux AArch64 (`.pkg.tar.zst`) | 547 MiB | [chatgpt-bin-26.1103.60933-1-aarch64.pkg.tar.zst](https://github.com/ConvedgeDev/omarchyBox-dist/releases/download/v0.1.12/chatgpt-bin-26.1103.60933-1-aarch64.pkg.tar.zst) |
 
 Release files:
@@ -72,7 +72,7 @@ Without `--release`, the script increments the latest release's patch version. T
 
 | 应用 | 版本 | 安装包格式 | 大小 | Release 下载 |
 | --- | --- | --- | --- | --- |
-| Claude Desktop | 4.23118.0 | Debian ARM64（`.deb`） | 164 MiB | [claude-desktop_4.23118.0_arm64.deb](https://github.com/ConvedgeDev/omarchyBox-dist/releases/download/v0.1.12/claude-desktop_4.23118.0_arm64.deb) |
+| Claude Desktop | 4.23118.1 | Debian ARM64（`.deb`） | 164 MiB | [claude-desktop_4.23118.1_arm64.deb](https://github.com/ConvedgeDev/omarchyBox-dist/releases/download/v0.1.12/claude-desktop_4.23118.1_arm64.deb) |
 | ChatGPT / Codex App | 26.1103.60933-1 | Arch Linux AArch64（`.pkg.tar.zst`） | 547 MiB | [chatgpt-bin-26.1103.60933-1-aarch64.pkg.tar.zst](https://github.com/ConvedgeDev/omarchyBox-dist/releases/download/v0.1.12/chatgpt-bin-26.1103.60933-1-aarch64.pkg.tar.zst) |
 
 Release 中的其他文件：

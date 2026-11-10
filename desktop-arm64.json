@@ -7,11 +7,11 @@
   "packages": [
     {
       "name": "Claude Desktop",
-      "version": "4.23118.0",
-      "filename": "claude-desktop_4.23118.0_arm64.deb",
-      "url": "https://downloads.claude.ai/claude-desktop/apt/stable/pool/main/c/claude-desktop/claude-desktop_4.23118.0_arm64.deb",
-      "size_bytes": 172109316,
-      "sha256": "b4c04e08338b321f5c02543ab6be819cbb9f38ef051a3e7d8ffdc5b4d5248ea4",
+      "version": "4.23118.1",
+      "filename": "claude-desktop_4.23118.1_arm64.deb",
+      "url": "https://downloads.claude.ai/claude-desktop/apt/stable/pool/main/c/claude-desktop/claude-desktop_4.23118.1_arm64.deb",
+      "size_bytes": 172219280,
+      "sha256": "c31ccfad22540f613681a3b7f0b5e6b9a0f1ec489229a1de6e9eaf5b705bd767",
       "verification": {
         "method": "OpenPGP signed InRelease, SHA-256 of ARM64 Packages.gz, SHA-256 of DEB",
         "metadata": {
@@ -19,10 +19,10 @@
           "signed_release": "https://downloads.claude.ai/claude-desktop/apt/stable/dists/stable/InRelease",
           "package_index": "https://downloads.claude.ai/claude-desktop/apt/stable/dists/stable/main/binary-arm64/Packages.gz"
         },
-        "release_valid_until_utc": "Thu, 12 Nov 2026 20:59:36 UTC",
+        "release_valid_until_utc": "Mon, 16 Nov 2026 19:52:01 UTC",
         "signing_key_fingerprint": "31DDDE24DDFAB679F42D7BD2BAA929FF1A7ECACE"
       },
-      "release_url": "https://github.com/ConvedgeDev/omarchyBox-dist/releases/download/v0.1.12/claude-desktop_4.23118.0_arm64.deb"
+      "release_url": "https://github.com/ConvedgeDev/omarchyBox-dist/releases/download/v0.1.12/claude-desktop_4.23118.1_arm64.deb"
     },
     {
       "name": "ChatGPT / Codex App",
