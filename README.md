@@ -4,21 +4,21 @@ Verified Linux ARM64 installer mirrors for **Claude Desktop** and **ChatGPT / Co
 
 **English** · [中文说明](#中文说明)
 
-## Download v0.1.12
+## Download v0.1.13
 
 | App | Version | Package format | Size | Release download |
 | --- | --- | --- | --- | --- |
-| Claude Desktop | 4.23118.1 | Debian ARM64 (`.deb`) | 164 MiB | [claude-desktop_4.23118.1_arm64.deb](https://github.com/ConvedgeDev/omarchyBox-dist/releases/download/v0.1.12/claude-desktop_4.23118.1_arm64.deb) |
-| ChatGPT / Codex App | 26.1103.60933-1 | Arch Linux AArch64 (`.pkg.tar.zst`) | 547 MiB | [chatgpt-bin-26.1103.60933-1-aarch64.pkg.tar.zst](https://github.com/ConvedgeDev/omarchyBox-dist/releases/download/v0.1.12/chatgpt-bin-26.1103.60933-1-aarch64.pkg.tar.zst) |
+| Claude Desktop | 5.1231.2 | Debian ARM64 (`.deb`) | 167 MiB | [claude-desktop_5.1231.2_arm64.deb](https://github.com/ConvedgeDev/omarchyBox-dist/releases/download/v0.1.13/claude-desktop_5.1231.2_arm64.deb) |
+| ChatGPT / Codex App | 26.1106.51428-1 | Arch Linux AArch64 (`.pkg.tar.zst`) | 550 MiB | [chatgpt-bin-26.1106.51428-1-aarch64.pkg.tar.zst](https://github.com/ConvedgeDev/omarchyBox-dist/releases/download/v0.1.13/chatgpt-bin-26.1106.51428-1-aarch64.pkg.tar.zst) |
 
 Release files:
 
-- [SHA256SUMS](https://github.com/ConvedgeDev/omarchyBox-dist/releases/download/v0.1.12/SHA256SUMS) — SHA-256 for both installer files.
-- [desktop-arm64.json](https://github.com/ConvedgeDev/omarchyBox-dist/releases/download/v0.1.12/desktop-arm64.json) — versions, file sizes, vendor source URLs, signed-index URLs, signing-key fingerprints and verification methods.
+- [SHA256SUMS](https://github.com/ConvedgeDev/omarchyBox-dist/releases/download/v0.1.13/SHA256SUMS) — SHA-256 for both installer files.
+- [desktop-arm64.json](https://github.com/ConvedgeDev/omarchyBox-dist/releases/download/v0.1.13/desktop-arm64.json) — versions, file sizes, vendor source URLs, signed-index URLs, signing-key fingerprints and verification methods.
 
 The original vendor downloads remain available at the URLs recorded in `desktop-arm64.json`. The GitHub Release copies let you download and verify a known-good ARM64 build even when a vendor URL changes or a pinned version is removed from the live index.
 
-Verified on 2026-11-10.
+Verified on 2026-11-11.
 
 ## Verify the downloads
 
@@ -70,21 +70,21 @@ The GitHub Actions workflow also runs daily at 09:17 Asia/Singapore. Scheduled r
 
 这里镜像两个 Linux ARM64 桌面应用的官方安装包：**Claude Desktop** 和 **ChatGPT / Codex App**。每个 GitHub Release 都包含 Anthropic 与 OpenAI 发布的原始安装文件，以及校验文件和机器可读清单元数据，方便离线安装、固定版本和重复下载。
 
-## 下载 v0.1.12
+## 下载 v0.1.13
 
 | 应用 | 版本 | 安装包格式 | 大小 | Release 下载 |
 | --- | --- | --- | --- | --- |
-| Claude Desktop | 4.23118.1 | Debian ARM64（`.deb`） | 164 MiB | [claude-desktop_4.23118.1_arm64.deb](https://github.com/ConvedgeDev/omarchyBox-dist/releases/download/v0.1.12/claude-desktop_4.23118.1_arm64.deb) |
-| ChatGPT / Codex App | 26.1103.60933-1 | Arch Linux AArch64（`.pkg.tar.zst`） | 547 MiB | [chatgpt-bin-26.1103.60933-1-aarch64.pkg.tar.zst](https://github.com/ConvedgeDev/omarchyBox-dist/releases/download/v0.1.12/chatgpt-bin-26.1103.60933-1-aarch64.pkg.tar.zst) |
+| Claude Desktop | 5.1231.2 | Debian ARM64（`.deb`） | 167 MiB | [claude-desktop_5.1231.2_arm64.deb](https://github.com/ConvedgeDev/omarchyBox-dist/releases/download/v0.1.13/claude-desktop_5.1231.2_arm64.deb) |
+| ChatGPT / Codex App | 26.1106.51428-1 | Arch Linux AArch64（`.pkg.tar.zst`） | 550 MiB | [chatgpt-bin-26.1106.51428-1-aarch64.pkg.tar.zst](https://github.com/ConvedgeDev/omarchyBox-dist/releases/download/v0.1.13/chatgpt-bin-26.1106.51428-1-aarch64.pkg.tar.zst) |
 
 Release 中的其他文件：
 
-- [SHA256SUMS](https://github.com/ConvedgeDev/omarchyBox-dist/releases/download/v0.1.12/SHA256SUMS)：两个安装包的 SHA-256。
-- [desktop-arm64.json](https://github.com/ConvedgeDev/omarchyBox-dist/releases/download/v0.1.12/desktop-arm64.json)：版本、字节数、厂商原始地址、签名索引地址、签名密钥指纹和验证方式。
+- [SHA256SUMS](https://github.com/ConvedgeDev/omarchyBox-dist/releases/download/v0.1.13/SHA256SUMS)：两个安装包的 SHA-256。
+- [desktop-arm64.json](https://github.com/ConvedgeDev/omarchyBox-dist/releases/download/v0.1.13/desktop-arm64.json)：版本、字节数、厂商原始地址、签名索引地址、签名密钥指纹和验证方式。
 
 `desktop-arm64.json` 里保留了厂商原始下载地址。GitHub Release 的副本用于在厂商链接变化或固定版本从实时索引移除后，仍能下载并核对已知可用的 ARM64 版本。
 
-校验日期：2026-11-10。
+校验日期：2026-11-11。
 
 ## 校验下载
 
