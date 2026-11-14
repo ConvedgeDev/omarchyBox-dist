@@ -1,17 +1,17 @@
 {
   "schema_version": 1,
-  "release": "v0.1.14",
+  "release": "v0.1.15",
   "architecture": "Linux ARM64",
-  "verified_on": "2026-11-13",
+  "verified_on": "2026-11-14",
   "repository": "https://github.com/ConvedgeDev/omarchyBox-dist",
   "packages": [
     {
       "name": "Claude Desktop",
-      "version": "5.11492.2",
-      "filename": "claude-desktop_5.11492.2_arm64.deb",
-      "url": "https://downloads.claude.ai/claude-desktop/apt/stable/pool/main/c/claude-desktop/claude-desktop_5.11492.2_arm64.deb",
-      "size_bytes": 175783688,
-      "sha256": "208b637e951f53d4621d6edc1598c21bda664602ed409ad37b6735021be9840e",
+      "version": "5.11492.5",
+      "filename": "claude-desktop_5.11492.5_arm64.deb",
+      "url": "https://downloads.claude.ai/claude-desktop/apt/stable/pool/main/c/claude-desktop/claude-desktop_5.11492.5_arm64.deb",
+      "size_bytes": 175866448,
+      "sha256": "fe6cd8a70f96b96eb4e6b647300cfaee6aaff4ce133a0fbbe11c2cdb775f5a6a",
       "verification": {
         "method": "OpenPGP signed InRelease, SHA-256 of ARM64 Packages.gz, SHA-256 of DEB",
         "metadata": {
@@ -19,10 +19,10 @@
           "signed_release": "https://downloads.claude.ai/claude-desktop/apt/stable/dists/stable/InRelease",
           "package_index": "https://downloads.claude.ai/claude-desktop/apt/stable/dists/stable/main/binary-arm64/Packages.gz"
         },
-        "release_valid_until_utc": "Fri, 20 Nov 2026 04:52:10 UTC",
+        "release_valid_until_utc": "Sat, 21 Nov 2026 00:01:47 UTC",
         "signing_key_fingerprint": "31DDDE24DDFAB679F42D7BD2BAA929FF1A7ECACE"
       },
-      "release_url": "https://github.com/ConvedgeDev/omarchyBox-dist/releases/download/v0.1.14/claude-desktop_5.11492.2_arm64.deb"
+      "release_url": "https://github.com/ConvedgeDev/omarchyBox-dist/releases/download/v0.1.15/claude-desktop_5.11492.5_arm64.deb"
     },
     {
       "name": "ChatGPT / Codex App",
@@ -41,7 +41,7 @@
         },
         "signing_key_fingerprint": "3BFA0E4AE8B8CC16A2D9BA684A3B4A566C4660E4"
       },
-      "release_url": "https://github.com/ConvedgeDev/omarchyBox-dist/releases/download/v0.1.14/chatgpt-bin-26.1111.21308-1-aarch64.pkg.tar.zst"
+      "release_url": "https://github.com/ConvedgeDev/omarchyBox-dist/releases/download/v0.1.15/chatgpt-bin-26.1111.21308-1-aarch64.pkg.tar.zst"
     }
   ]
 }
