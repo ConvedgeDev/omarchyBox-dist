@@ -1,17 +1,17 @@
 {
   "schema_version": 1,
-  "release": "v0.1.18",
+  "release": "v0.1.19",
   "architecture": "Linux ARM64",
-  "verified_on": "2026-11-20",
+  "verified_on": "2026-11-21",
   "repository": "https://github.com/ConvedgeDev/omarchyBox-dist",
   "packages": [
     {
       "name": "Claude Desktop",
-      "version": "5.11492.5",
-      "filename": "claude-desktop_5.11492.5_arm64.deb",
-      "url": "https://downloads.claude.ai/claude-desktop/apt/stable/pool/main/c/claude-desktop/claude-desktop_5.11492.5_arm64.deb",
-      "size_bytes": 175866448,
-      "sha256": "fe6cd8a70f96b96eb4e6b647300cfaee6aaff4ce133a0fbbe11c2cdb775f5a6a",
+      "version": "6.28899.2",
+      "filename": "claude-desktop_6.28899.2_arm64.deb",
+      "url": "https://downloads.claude.ai/claude-desktop/apt/stable/pool/main/c/claude-desktop/claude-desktop_6.28899.2_arm64.deb",
+      "size_bytes": 184424940,
+      "sha256": "7ec2a354ecb8bafae3e3ccafe620144232b7429b216ab59a05a0d6cc340f1455",
       "verification": {
         "method": "OpenPGP signed InRelease, SHA-256 of ARM64 Packages.gz, SHA-256 of DEB",
         "metadata": {
@@ -19,29 +19,29 @@
           "signed_release": "https://downloads.claude.ai/claude-desktop/apt/stable/dists/stable/InRelease",
           "package_index": "https://downloads.claude.ai/claude-desktop/apt/stable/dists/stable/main/binary-arm64/Packages.gz"
         },
-        "release_valid_until_utc": "Thu, 26 Nov 2026 17:17:13 UTC",
+        "release_valid_until_utc": "Fri, 27 Nov 2026 22:32:00 UTC",
         "signing_key_fingerprint": "31DDDE24DDFAB679F42D7BD2BAA929FF1A7ECACE"
       },
-      "release_url": "https://github.com/ConvedgeDev/omarchyBox-dist/releases/download/v0.1.18/claude-desktop_5.11492.5_arm64.deb"
+      "release_url": "https://github.com/ConvedgeDev/omarchyBox-dist/releases/download/v0.1.19/claude-desktop_6.28899.2_arm64.deb"
     },
     {
       "name": "ChatGPT / Codex App",
-      "version": "26.1117.31558-1",
-      "filename": "chatgpt-bin-26.1117.31558-1-aarch64.pkg.tar.zst",
-      "url": "https://persistent.oaistatic.com/codex-app-prod/linux/arch/26.1117.31558/aarch64/chatgpt-bin-26.1117.31558-1-aarch64.pkg.tar.zst",
-      "size_bytes": 557338042,
-      "sha256": "eced2c34602fa9bf86d8e7ef90e220bb0b48c5fa6d13d2637782b1fd13c18df6",
+      "version": "26.1117.41037-1",
+      "filename": "chatgpt-bin-26.1117.41037-1-aarch64.pkg.tar.zst",
+      "url": "https://persistent.oaistatic.com/codex-app-prod/linux/arch/26.1117.41037/aarch64/chatgpt-bin-26.1117.41037-1-aarch64.pkg.tar.zst",
+      "size_bytes": 557426532,
+      "sha256": "fcefddaf6ccbc7a84be01930cd5c3e2151a9373b7d8a987451cc48e9a5b0118a",
       "verification": {
         "method": "OpenPGP signed Arch package index and detached package signature",
         "metadata": {
-          "signing_key": "https://persistent.oaistatic.com/codex-app-prod/linux/arch/26.1117.31558/repository-signing-key.gpg",
-          "package_index": "https://persistent.oaistatic.com/codex-app-prod/linux/arch/26.1117.31558/aarch64/openai-chatgpt.db",
-          "package_index_signature": "https://persistent.oaistatic.com/codex-app-prod/linux/arch/26.1117.31558/aarch64/openai-chatgpt.db.sig",
-          "package_signature": "https://persistent.oaistatic.com/codex-app-prod/linux/arch/26.1117.31558/aarch64/chatgpt-bin-26.1117.31558-1-aarch64.pkg.tar.zst.sig"
+          "signing_key": "https://persistent.oaistatic.com/codex-app-prod/linux/arch/26.1117.41037/repository-signing-key.gpg",
+          "package_index": "https://persistent.oaistatic.com/codex-app-prod/linux/arch/26.1117.41037/aarch64/openai-chatgpt.db",
+          "package_index_signature": "https://persistent.oaistatic.com/codex-app-prod/linux/arch/26.1117.41037/aarch64/openai-chatgpt.db.sig",
+          "package_signature": "https://persistent.oaistatic.com/codex-app-prod/linux/arch/26.1117.41037/aarch64/chatgpt-bin-26.1117.41037-1-aarch64.pkg.tar.zst.sig"
         },
         "signing_key_fingerprint": "3BFA0E4AE8B8CC16A2D9BA684A3B4A566C4660E4"
       },
-      "release_url": "https://github.com/ConvedgeDev/omarchyBox-dist/releases/download/v0.1.18/chatgpt-bin-26.1117.31558-1-aarch64.pkg.tar.zst"
+      "release_url": "https://github.com/ConvedgeDev/omarchyBox-dist/releases/download/v0.1.19/chatgpt-bin-26.1117.41037-1-aarch64.pkg.tar.zst"
     }
   ]
 }
