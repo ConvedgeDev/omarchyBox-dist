@@ -9,7 +9,7 @@ Verified Linux ARM64 installer mirrors for **Claude Desktop** and **ChatGPT / Co
 | App | Version | Package format | Size | Release download |
 | --- | --- | --- | --- | --- |
 | Claude Desktop | 6.28899.6 | Debian ARM64 (`.deb`) | 176 MiB | [claude-desktop_6.28899.6_arm64.deb](https://github.com/ConvedgeDev/omarchyBox-dist/releases/download/v0.1.20/claude-desktop_6.28899.6_arm64.deb) |
-| ChatGPT / Codex App | 26.1117.41037-1 | Arch Linux AArch64 (`.pkg.tar.zst`) | 532 MiB | [chatgpt-bin-26.1117.41037-1-aarch64.pkg.tar.zst](https://github.com/ConvedgeDev/omarchyBox-dist/releases/download/v0.1.20/chatgpt-bin-26.1117.41037-1-aarch64.pkg.tar.zst) |
+| ChatGPT / Codex App | 26.1120.41243-1 | Arch Linux AArch64 (`.pkg.tar.zst`) | 503 MiB | [chatgpt-bin-26.1120.41243-1-aarch64.pkg.tar.zst](https://github.com/ConvedgeDev/omarchyBox-dist/releases/download/v0.1.20/chatgpt-bin-26.1120.41243-1-aarch64.pkg.tar.zst) |
 
 Release files:
 
@@ -18,7 +18,7 @@ Release files:
 
 The original vendor downloads remain available at the URLs recorded in `desktop-arm64.json`. The GitHub Release copies let you download and verify a known-good ARM64 build even when a vendor URL changes or a pinned version is removed from the live index.
 
-Verified on 2026-11-22.
+Verified on 2026-11-24.
 
 ## Verify the downloads
 
@@ -75,7 +75,7 @@ The GitHub Actions workflow also runs daily at 09:17 Asia/Singapore. Scheduled r
 | 应用 | 版本 | 安装包格式 | 大小 | Release 下载 |
 | --- | --- | --- | --- | --- |
 | Claude Desktop | 6.28899.6 | Debian ARM64（`.deb`） | 176 MiB | [claude-desktop_6.28899.6_arm64.deb](https://github.com/ConvedgeDev/omarchyBox-dist/releases/download/v0.1.20/claude-desktop_6.28899.6_arm64.deb) |
-| ChatGPT / Codex App | 26.1117.41037-1 | Arch Linux AArch64（`.pkg.tar.zst`） | 532 MiB | [chatgpt-bin-26.1117.41037-1-aarch64.pkg.tar.zst](https://github.com/ConvedgeDev/omarchyBox-dist/releases/download/v0.1.20/chatgpt-bin-26.1117.41037-1-aarch64.pkg.tar.zst) |
+| ChatGPT / Codex App | 26.1120.41243-1 | Arch Linux AArch64（`.pkg.tar.zst`） | 503 MiB | [chatgpt-bin-26.1120.41243-1-aarch64.pkg.tar.zst](https://github.com/ConvedgeDev/omarchyBox-dist/releases/download/v0.1.20/chatgpt-bin-26.1120.41243-1-aarch64.pkg.tar.zst) |
 
 Release 中的其他文件：
 
@@ -84,7 +84,7 @@ Release 中的其他文件：
 
 `desktop-arm64.json` 里保留了厂商原始下载地址。GitHub Release 的副本用于在厂商链接变化或固定版本从实时索引移除后，仍能下载并核对已知可用的 ARM64 版本。
 
-校验日期：2026-11-22。
+校验日期：2026-11-24。
 
 ## 校验下载
 
